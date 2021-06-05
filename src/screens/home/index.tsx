@@ -1,34 +1,55 @@
+import { useFocusEffect } from '@react-navigation/core';
+import { Video } from 'expo-av';
 import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { Modalize } from 'react-native-modalize';
 import { AppHeader } from '../../components/app-header';
+import api from '../../services/api';
 import { AppColors } from '../../theme/colors';
-import { CategoryButton, ProjectItem } from './components';
+import { CategoryButton, ModalProject, ProjectItem } from './components';
 
 export interface HomeScreenProps {
 }
 
 export function HomeScreen (props: HomeScreenProps) {
 
-    const [ projects, setProjects ] = React.useState([
-        {id: 1, image: require('./../../assets/imgs/projects/project1.png'), text: 'Criando uma plataforma de job’s com Next JS', total: 10, watched: 3},
-        {id: 2, image: require('./../../assets/imgs/projects/project2.png'), text: 'Clone da interface do Nubank com React Native', total: 10, watched: 10},
-        {id: 3, image: require('./../../assets/imgs/projects/project3.png'), text: 'Integração React e Hubspot CRM', total: 10, watched: 9},
-        {id: 4, image: require('./../../assets/imgs/projects/project4.png'), text: 'Plataforma de conteúdo com RN', total: 10, watched: 5},
-    ])
+
+    const modalizeRef = React.useRef<Modalize>(null);
+    const [ selectedProject, setSelectedProject ] = React.useState<any>(null); 
+
+    const [ projects, setProjects ] = React.useState([])
+    const [ update, setUpdate ] = React.useState(false);
+
+    React.useEffect(() => {
+        api.get('/projects').then(response => {
+            setProjects(response.data);
+        }).catch(erro => {
+            console.log('Erro')
+        })
+
+    }, [update])
+
 
     const selectCategory = (id: string) => {
         console.log('ID:', id);
+        api.get('/projects/category/' + id).then(response => {
+            setProjects(response.data);
+        }).catch(erro => {
+            console.log('Erro')
+        })
     }
 
     const openProject = (project: any) => {
         console.log('Projeto:', project);
+        setSelectedProject(project);
+        modalizeRef.current?.open();
     }
 
     return (
         <View style={styles.container}>
             <AppHeader title="Home"/>
-            
+
             <View style={{padding: 20, flex: 1}}>
                 {/* CURSOS */}
                 <Text style={styles.category}>Cursos</Text>
@@ -40,7 +61,7 @@ export function HomeScreen (props: HomeScreenProps) {
                         {id: 3, image:require('./../../assets/imgs/logos/node.png'), text:"Node", color:'#03ab4f'},
                     ]}
                     keyExtractor={(item, index) => String(item.id)}
-                    style={{height: 60}}
+                    style={{maxHeight: 60}}
                     horizontal
                     renderItem={({item}) => (
                         <CategoryButton {...item} onPress={selectCategory}/>
@@ -58,8 +79,16 @@ export function HomeScreen (props: HomeScreenProps) {
                         <ProjectItem project={item} onPress={openProject} />
                     )}
                 />
-                 
             </View>
+
+            <Modalize
+                ref={modalizeRef}
+                modalTopOffset={150}
+                disableScrollIfPossible={true}
+                modalStyle={{marginHorizontal: 20}}
+            >
+                <ModalProject project={selectedProject} />
+            </Modalize>
         </View>
 
     );

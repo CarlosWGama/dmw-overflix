@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TextInput, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ActivityIndicator, Alert } from 'react-native';
 import { AppColors } from '../../theme/colors';
 import { CheckBox, Button } from 'react-native-elements';
 import { FloatingLabelInput } from 'react-native-floating-label-input';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/core';
+import api from '../../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface LoginScreenProps {
 }
@@ -15,12 +17,18 @@ export function LoginScreen (props: LoginScreenProps) {
     const nav = useNavigation();
 
     const login = async (datas) => {
-        await new Promise((resolve, erro) => setTimeout(() => resolve('Completou'), 2000));
-        console.log('Email:', datas.email);
-        console.log('Senha:', datas.password);
-        console.log('Lembrar-me:', datas.rememberMe);
+        
+        const {email, password} = datas;
 
-        nav.navigate('app')
+        api.post('/login', {email, password}).then(response => {
+            AsyncStorage.setItem("jwt", response.data.jwt);
+            AsyncStorage.setItem("user", JSON.stringify(response.data.user));
+            nav.navigate('app')
+        }).catch(erro => {
+            Alert.alert("Falha Login", "Login ou senha inválida");
+        })
+
+
 
     }
 

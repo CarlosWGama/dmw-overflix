@@ -1,4 +1,5 @@
-import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect, useNavigation } from '@react-navigation/core';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
@@ -11,12 +12,25 @@ export interface AppHeaderProps {
 
 export function AppHeader (props: AppHeaderProps) {
 
-    const name = 'Carlos';
-    const avatar = 'https://carloswgama.com.br/storage/avatars/carlos.png';
+    const [ name, setName ] = React.useState<null|string>(null);
+    const [ avatar, setAvatar ] = React.useState<null|string>(null);
     const nav = useNavigation();
+    
+    useFocusEffect(() => {
+        AsyncStorage.getItem("user").then(user => {
+            if (user) {
+                let userObj = JSON.parse(user);
+                setName(userObj?.name);
+                setAvatar(userObj?.avatar);
+            }
+        })
+    })
 
     const quit = () => {
         nav.navigate('login');
+        AsyncStorage.clear();
+        setName(null);
+        setAvatar(null);
     }
     
     return (
@@ -28,8 +42,8 @@ export function AppHeader (props: AppHeaderProps) {
             end={[1, 1]}
          >
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Text style={styles.welcome}>Olá, {name}</Text>
-                <Image source={{uri:avatar}} style={styles.avatar}/>
+                { name && <Text style={styles.welcome}>Olá, {name}</Text>}
+                { avatar && <Image source={{uri:avatar}} style={styles.avatar}/>}
             </View>
         
             <Button title="Sair" type="outline" buttonStyle={styles.quit} titleStyle={{color:'white'}} onPress={quit} />

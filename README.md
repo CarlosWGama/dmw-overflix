@@ -5,6 +5,14 @@
 <p>Tela dos Projetos</p>
 <a href="https://www.figma.com/file/xCYJRTwk1DUz0F1xcDU86N/OverFlix---Final?node-id=188%3A581" target="_blank">Telas no Figmar</a>
 
+<br/><br/>
+
+<p>Caso tenha baixado o repositório e deseje avançar para uma aula, basta executar os comandos para o dia específico: <p>
+
+```
+git checkout --force dia1
+expo install
+```
 
 ## <b>Dia 1</b>
 <p>O que veremos: </p>

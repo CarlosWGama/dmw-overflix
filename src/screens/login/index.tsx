@@ -5,17 +5,23 @@ import { CheckBox, Button } from 'react-native-elements';
 import { FloatingLabelInput } from 'react-native-floating-label-input';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useNavigation } from '@react-navigation/core';
 
 export interface LoginScreenProps {
 }
 
 export function LoginScreen (props: LoginScreenProps) {
 
+    const nav = useNavigation();
+
     const login = async (datas) => {
         await new Promise((resolve, erro) => setTimeout(() => resolve('Completou'), 2000));
         console.log('Email:', datas.email);
         console.log('Senha:', datas.password);
         console.log('Lembrar-me:', datas.rememberMe);
+
+        nav.navigate('app')
+
     }
 
     //Render

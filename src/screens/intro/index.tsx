@@ -4,11 +4,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { AppColors } from './../../theme/colors';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { PageItem } from './components';
+import { useNavigation } from '@react-navigation/core';
 
 export interface IntroScreenProps {
 }
 
 export function IntroScreen (props: IntroScreenProps) {
+
+    const nav = useNavigation();
 
     const pages = [
         {
@@ -34,9 +37,7 @@ export function IntroScreen (props: IntroScreenProps) {
                 data={pages}
                 renderNextButton={() => <Text style={styles.btnPagination}>PRÓXIMO</Text>}
                 renderDoneButton={() => <Text style={styles.btnPagination}>INICIAR</Text>}
-                onDone={() => {
-                    console.log('COMPLETOU!!')
-                }}
+                onDone={() => nav.navigate('login')}
                 renderItem={({item}) => (
                     <PageItem {...item}/>
                 )}

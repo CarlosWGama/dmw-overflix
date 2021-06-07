@@ -34,6 +34,11 @@ expo install
     <li><a target="_blank" href="https://code.visualstudio.com/">VS Code</a></li>
 </ul>
 
+<p style="color:tomato">OBS*: Caso o teu PowerShell tenha dado uma restrição ao usar o Expo, execute o seguinte comando como administrador dentro do PowerShell: </p>
+
+```
+Set-ExecutionPolicy Unrestricted
+```
 
 
 ## <b>Dia 2</b>
@@ -63,8 +68,8 @@ expo install react-native-app-intro-slider
 
 ### Cores
 
-- ![#320995](https://via.placeholder.com/15/320995/000000?text=+) `#e2306c (Cor Primaria)`
-- ![#e2306c](https://via.placeholder.com/15/e2306c/000000?text=+) `#320995 (Cor Secundaria)`
+- ![#e2306c](https://via.placeholder.com/15/320995/000000?text=+) `#e2306c (Cor Primaria)`
+- ![#320995](https://via.placeholder.com/15/e2306c/000000?text=+) `#320995 (Cor Secundaria)`
 - ![#f0f0f7](https://via.placeholder.com/15/f0f0f7/000000?text=+) `#f0f0f7 (Cor de Background)`
 - ![#f0f0f7](https://via.placeholder.com/15/f0f0f7/000000?text=+) `#f0f0f7 (Cor de Background)`
 - ![#6a617f](https://via.placeholder.com/15/6a617f/000000?text=+) `#6a617f (Cor de Texto)`

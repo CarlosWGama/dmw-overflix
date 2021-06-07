@@ -6,13 +6,15 @@ import LinearProgress from 'react-native-elements/dist/linearProgress/LinearProg
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import api from '../../services/api';
 import { AppColors } from '../../theme/colors';
+import AppSlider from 'react-native-app-intro-slider';
+import { styles } from 'react-native-floating-label-input/src/styles';
 
 export interface CategoryButtonProps {
     id: string,
     image: any;
     text: string;
     color: string;
-    onPress(id: string);
+    onPress(id: string): any;
 }
 
 export function CategoryButton (props: CategoryButtonProps) {
@@ -108,21 +110,29 @@ export function ModalProject (props: ModalProjectProps) {
          <Text style={stylesMP.labelVideo}>VÍdeos</Text>
 
 
-        {project.videos.map((video, index) => (
-            <View key={String(index)} style={stylesMP.videoContainer}>
-                <Video
-                    style={stylesMP.video}
-                    source={{uri:video.url}}
-                    resizeMode="contain"
-                    useNativeControls
-                />
-                <Button title={video.watched ? "Desmarcar como assistido" : "Marcar como assistido"} 
-                        type="outline"
-                        titleStyle={{color: (video.watched ? AppColors.Primary : AppColors.Secondary)}}  
-                        onPress={() => markVideo(video, index)}  
-                        />
-            </View> 
-        ))}
+        <AppSlider
+            data={project.videos}
+            keyExtractor={(item, index) => String(index)}
+            showNextButton={false}
+            showDoneButton={false}
+            activeDotStyle={{backgroundColor: AppColors.Primary}}
+            renderItem={({item, index}) => (
+                <View style={stylesMP.videoContainer}>
+                    <Text style={stylesMP.numberClass}>Aula {index+1}</Text>
+                    <Video
+                        style={stylesMP.video}
+                        source={{uri:item.url}}
+                        resizeMode="contain"
+                        useNativeControls
+                    />
+                    <Button title={item.watched ? "Desmarcar como assistido" : "Marcar como assistido"} 
+                            type="outline"
+                            titleStyle={{color: (item.watched ? AppColors.Primary : AppColors.Secondary)}}  
+                            onPress={() => markVideo(item, index)}  
+                            />
+                </View> 
+            )}
+        />  
       </View>
     );
 }
@@ -130,7 +140,9 @@ export function ModalProject (props: ModalProjectProps) {
 const stylesMP = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20
+        minHeight: 450,
+        padding: 20,
+        height: '100%',
     },
     labelVideo: {
         textAlign:'center',
@@ -138,9 +150,12 @@ const stylesMP = StyleSheet.create({
         marginVertical: 20
     },
     videoContainer: {
-        borderBottomWidth: 1,
+        flex:1,
         paddingBottom: 10,
-        borderColor: 'lightgrey'
+    },
+    numberClass: {
+        textAlign: 'center',
+        fontSize: 20
     },
     video: {
         width: '100%',

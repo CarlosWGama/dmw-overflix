@@ -20,7 +20,7 @@ export function LoginScreen (props: LoginScreenProps) {
         
         const {email, password} = datas;
 
-        api.post('/login', {email, password}).then(response => {
+        await api.post('/login', {email, password}).then(response => {
             AsyncStorage.setItem("jwt", response.data.jwt);
             AsyncStorage.setItem("user", JSON.stringify(response.data.user));
             nav.navigate('app')

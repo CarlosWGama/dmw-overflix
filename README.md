@@ -85,7 +85,7 @@ expo install react-native-app-intro-slider
 
 ### Bibliotecas:
 
-<li><a href="https://reactnativeelements.com/docs/">Floating label</a>:</li>
+<li><a href="https://www.npmjs.com/package/react-native-floating-label-input">Floating label</a>:</li>
 
 ```
 expo install react-native-floating-label-input react-native-reanimated

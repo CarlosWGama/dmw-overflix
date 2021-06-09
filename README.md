@@ -68,9 +68,8 @@ expo install react-native-app-intro-slider
 
 ### Cores
 
-- ![#e2306c](https://via.placeholder.com/15/320995/000000?text=+) `#e2306c (Cor Primaria)`
-- ![#320995](https://via.placeholder.com/15/e2306c/000000?text=+) `#320995 (Cor Secundaria)`
-- ![#f0f0f7](https://via.placeholder.com/15/f0f0f7/000000?text=+) `#f0f0f7 (Cor de Background)`
+- ![#e2306c](https://via.placeholder.com/15/e2306c/000000?text=+) `#e2306c (Cor Primaria)`
+- ![#320995](https://via.placeholder.com/15/320995/000000?text=+) `#320995 (Cor Secundaria)`
 - ![#f0f0f7](https://via.placeholder.com/15/f0f0f7/000000?text=+) `#f0f0f7 (Cor de Background)`
 - ![#6a617f](https://via.placeholder.com/15/6a617f/000000?text=+) `#6a617f (Cor de Texto)`
 - ![#dad9e3](https://via.placeholder.com/15/dad9e3/000000?text=+) `#dad9e3 (Cor de Texto Númerico)`
@@ -86,7 +85,7 @@ expo install react-native-app-intro-slider
 
 ### Bibliotecas:
 
-<li><a href="https://reactnativeelements.com/docs/">React Native Elements</a>:</li>
+<li><a href="https://reactnativeelements.com/docs/">Floating label</a>:</li>
 
 ```
 expo install react-native-floating-label-input react-native-reanimated

@@ -168,6 +168,11 @@ expo install axios
 expo install @react-native-async-storage/async-storage
 ```
 
+### Vídeo para teste
+<p>http://overflix.cwg.services/videos/flexbox.mp4</p>
+
+
+
 ### API
 <p><b>URL BASE:</b> http://overflix.cwg.services/api </p>
 
@@ -203,6 +208,7 @@ expo install @react-native-async-storage/async-storage
         id: number,
         image: string,
         text: string,
+        favorite: boolean,
         category_id: number,
         total: number,
         videos: [
@@ -230,6 +236,7 @@ expo install @react-native-async-storage/async-storage
         id: number,
         image: string,
         text: string,
+        favorite: boolean,
         category_id: number,
         total: number,
         videos: [
